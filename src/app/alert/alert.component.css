@@ -1,0 +1,77 @@
+.custom-alert {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+  font-family: Arial, sans-serif;
+  color: #fff;
+}
+
+.custom-alert--success {
+  background-color: #28a745;
+}
+
+.custom-alert--error {
+  background-color: #dc3545;
+}
+
+.custom-alert__icon {
+  font-size: 1.5rem;
+  margin-right: 0.75rem;
+}
+
+.custom-alert__content {
+  flex: 1;
+}
+
+.custom-alert__message {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.custom-alert__close {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.custom-alert__close:hover {
+  opacity: 0.8;
+}
+.custom-alert {
+  position: absolute; /* Position it absolutely */
+  top: 80px; /* Adjust this value to position vertically */
+  right: 20px; /* Adjust this value to position horizontally */
+  width: auto; /* Set a specific width if needed */
+  max-width: 300px; /* Optional: max width for better readability */
+  z-index: 1000; /* High z-index to ensure it overlays other content */
+  border: 1px solid transparent; /* Optional: for visual separation */
+  border-radius: 4px; /* Optional: rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Optional: shadow for depth */
+}
+
+.custom-alert--success {
+  border-color: #28a745; /* Green border for success */
+}
+
+.custom-alert--error {
+  border-color: #dc3545; /* Red border for error */
+}
+
+.custom-alert__icon {
+  display: inline-block; /* Align icons nicely */
+  margin-right: 10px; /* Space between icon and text */
+}
+
+.custom-alert__close {
+  background: none; /* No background for the close button */
+  border: none; /* Remove borders */
+  cursor: pointer; /* Show pointer on hover */
+}

@@ -1,0 +1,228 @@
+<div class="mt-2 mb-2">
+  <button
+    type="button"
+    class="btn btn-primary btn-lg"
+    data-bs-toggle="modal"
+    data-bs-target="#modalId"
+    (click)="(IsAdd === 1)"
+  >
+    Add new
+  </button>
+  <div
+    class="modal fade"
+    id="modalId"
+    tabindex="-1"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    role="dialog"
+    aria-labelledby="modalTitleId"
+    aria-hidden="true"
+  >
+    <div
+      class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg"
+      role="document"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitleId">User</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="Reset()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="formUser">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="username">User name</label>
+                  <input
+                    type="text"
+                    [formControl]="formUser.controls.username"
+                    name="username"
+                    id="username"
+                    class="form-control"
+                    placeholder="username"
+                    ariadescribedby="helpId"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="email">Email</label>
+                  <input
+                    type="text"
+                    [formControl]="formUser.controls.email"
+                    name="email"
+                    id="email"
+                    class="form-control"
+                    placeholder="email"
+                    ariadescribedby="helpId"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="password">Password</label>
+                  <input
+                    type="text"
+                    [formControl]="formUser.controls.password"
+                    name="password"
+                    id="password"
+                    class="form-control"
+                    placeholder="password"
+                    ariadescribedby="helpId"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="role">Role</label>
+                  <select
+                    class="form-control"
+                    [formControl]="formUser.controls.role"
+                    name="role"
+                    id="role"
+                  >
+                    <option value="Admin" [selected]="true">
+                      Administrator
+                    </option>
+                    <option value="User">User</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <!-- modal-footer  -->
+          @if (IsAdd==1) {
+          <button
+            type="button"
+            data-bs-dismiss="modal"
+            class="btn btn-primary"
+            (click)="Add()"
+          >
+            Add user
+          </button>
+          } @if (IsUpdate==2) {
+          <button
+            type="button"
+            data-bs-dismiss="modal"
+            class="btn btn-primary"
+            (click)="Update()"
+          >
+            Update
+          </button>
+          }
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="Reset()"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<table class="table table-bordered table-dark table-hover align-middle">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>User name</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Role</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of userList; track $index) {
+    <tr>
+      <td>{{ item.id }}</td>
+      <td>{{ item.username }}</td>
+      <td>{{ item.email }}</td>
+      <td>{{ item.password }}</td>
+      <td>{{ item.role }}</td>
+      <td class="d-flex align-items-center">
+        <button
+          class="btn btn-warning m-2"
+          data-bs-toggle="modal"
+          data-bs-target="#modalId"
+          (click)="Edit(+item.id); IsAdd = 0; IsUpdate = 2"
+        >
+          Edit
+        </button>
+        <button
+          class="btn btn-danger m-2"
+          data-bs-toggle="modal"
+          data-bs-target="#modalDelete"
+        >
+          Delete
+        </button>
+        <!-- Modal delete -->
+        <div
+          class="modal fade"
+          id="modalDelete"
+          tabindex="-1"
+          data-bs-backdrop="static"
+          data-bs-keyboard="false"
+          role="dialog"
+          aria-labelledby="modalTitleId"
+          aria-hidden="true"
+        >
+          <div
+            class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
+            role="document"
+          >
+            <div class="modal-content">
+              <div class="modal-header text-center">
+                <h5
+                  class="modal-title"
+                  id="modalTitleId"
+                  class="text-warning text-center"
+                >
+                  Warning
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <h5 class="text-black">Do you want delete this user ?</h5>
+                <button
+                  class="btn m-2 btn-success text-black"
+                  (click)="Delete(+item.id)"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                >
+                  Yes
+                </button>
+                <button
+                  class="btn m-2 btn-danger text-black"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                >
+                  No
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>

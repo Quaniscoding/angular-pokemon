@@ -1,0 +1,91 @@
+<app-header></app-header>
+<main id="main" class="main-content grid-container">
+  <h1>Pokémon item list</h1>
+  <div class="table-filters">
+    <label for="filter-item-name">Filter:</label>
+    <input
+      type="text"
+      class="input-text"
+      [(ngModel)]="searching"
+      (ngModelChange)="filterResults()"
+      id="filter-item-name"
+      data-filter-col="0,1,2"
+    />
+    <label for="filter-item-cat">Category:</label>
+    <select [(ngModel)]="selectedCategory" (change)="filterResults()">
+      <option value="">- All -</option>
+      <option value="Berries">Berries</option>
+      <option value="PokeBalls">Pokeballs</option>
+    </select>
+  </div>
+  <div class="resp-scroll">
+    <table class="data-table block-wide">
+      <thead>
+        <tr>
+          <th
+            class="sorting"
+            [ngClass]="{
+              'sorting-asc':
+                isSorted && sortDirection === 'asc' && sortField === 'name',
+              'sorting-desc':
+                isSorted && sortDirection === 'desc' && sortField === 'name'
+            }"
+            data-sort-type="string"
+            [attr.data-sort-dir]="sortDirection"
+            (click)="toggleSort('name')"
+          >
+            <div class="sortwrap">Name</div>
+          </th>
+          <th
+            class="sorting"
+            [ngClass]="{
+              'sorting-asc':
+                isSorted && sortDirection === 'asc' && sortField === 'category',
+              'sorting-desc':
+                isSorted && sortDirection === 'desc' && sortField === 'category'
+            }"
+            data-sort-type="string"
+            [attr.data-sort-dir]="sortDirection"
+            (click)="toggleSort('category')"
+          >
+            <div class="sortwrap">Category</div>
+          </th>
+          <th>
+            <div class="sortwrap">Effect</div>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let item of filterPokemonBallList; let i = index">
+        <tr>
+          <td class="cell-fixed" data-sort-value="Beast Ball">
+            <img
+              class="img-fixed icon-item-img"
+              src="{{ item.img }}"
+              alt="{{ item.name }}"
+              width="32"
+              height="32"
+              loading="lazy"
+            />
+            <a class="ent-name">{{ item.name }}</a>
+          </td>
+          <td class="cell-fixed" data-sort-value="pokeballs">
+            {{ item.category }}
+          </td>
+          <td class="cell-long-text">
+            {{ item.effect }}
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-outline-light text-black"
+              [routerLink]="['/cart', item.id, 'pokemonBall']"
+            >
+              Detail
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

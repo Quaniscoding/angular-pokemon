@@ -1,0 +1,99 @@
+.crop {
+  overflow: hidden;
+}
+.input[type="text"] {
+  width: 300px;
+  -webkit-transition: width 1s ease-in-out;
+  transition: width 1s ease-in-out;
+}
+.input[type="text"]:focus {
+  width: 100%;
+}
+.bg-water {
+  background-color: #a3d5e0;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.bg-electric {
+  background-color: yellow;
+  color: black;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.bg-fire {
+  background-color: red;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.bg-flying {
+  background-color: lightblue;
+  color: black;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.bg-psychic {
+  background-color: purple;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.bg-normal {
+  background-color: beige;
+  color: black;
+  padding: 5px;
+  border-radius: 4px;
+}
+.bg-normal-fairy {
+  background-color: beige;
+  color: black;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.bg-fairy {
+  background-color: pink;
+  color: black;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.bg-ghost {
+  background-color: darkviolet;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.bg-poison {
+  background-color: green;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.bg-fighting {
+  background-color: brown;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.bg-steel {
+  background-color: gray;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.bg-dragon {
+  background-color: orange;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+}

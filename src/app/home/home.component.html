@@ -1,0 +1,118 @@
+<app-header></app-header>
+<div class="container mb-4">
+  <app-carousel></app-carousel>
+  <!-- Search and Products Section -->
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <form class="form-inline">
+        <div class="form-group">
+          <input
+            type="text"
+            size="50"
+            [(ngModel)]="searching"
+            (ngModelChange)="filterResults()"
+            name="searching"
+            class="form-control shadow-sm"
+            placeholder="Search"
+          />
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <select
+        class="form-control shadow-sm"
+        [(ngModel)]="sortOption"
+        (change)="filterResults()"
+        value="Sort"
+      >
+        <option value="nameAsc">Sort by name: A - Z</option>
+        <option value="nameDesc">Sort by name: Z - A</option>
+        <option value="priceAsc">Sort by price: Low to High</option>
+        <option value="priceDesc">Sort by price: High to Low</option>
+      </select>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <picture>
+      <source
+        type="image/avif"
+        media="(min-width: 900px)"
+        width="1140"
+        height="100"
+        srcset="https://img.pokemondb.net/design/avif/header-lg.avif"
+      />
+      <source
+        type="image/avif"
+        media="(min-width: 620px)"
+        width="807"
+        height="100"
+        srcset="
+          https://img.pokemondb.net/design/avif/header-md.avif,
+          https://img.pokemondb.net/design/avif/header-md-2x.avif 2x
+        "
+      />
+      <source
+        type="image/avif"
+        width="367"
+        height="100"
+        srcset="
+          https://img.pokemondb.net/design/avif/header-sm.avif,
+          https://img.pokemondb.net/design/avif/header-sm-2x.avif 2x
+        "
+      />
+      <source
+        type="image/png"
+        media="(min-width: 900px)"
+        width="1140"
+        height="100"
+        srcset="https://img.pokemondb.net/design/header-lg.png"
+      />
+      <source
+        type="image/png"
+        media="(min-width: 620px)"
+        width="807"
+        height="100"
+        srcset="
+          https://img.pokemondb.net/design/header-md.png,
+          https://img.pokemondb.net/design/header-md-2x.png 2x
+        "
+      />
+      <img
+        src="https://img.pokemondb.net/design/header-sm.png"
+        alt="Pokemon Database logo, with Scizor"
+        srcset="https://img.pokemondb.net/design/header-sm-2x.png 2x"
+        fetchpriority="high"
+      />
+    </picture>
+  </div>
+  <div class="row mt-4">
+    <div
+      class="col-sm-6 col-md-6 col-lg-4"
+      *ngFor="let item of filterProductList; let i = index"
+    >
+      <div class="card-deck mt-3">
+        <div class="card shadow-sm h-100">
+          <img
+            class="card-img-top p-3"
+            src="{{ item.img }}"
+            alt=""
+            style="object-fit: cover; height: 250px"
+          />
+          <div class="card-body text-left">
+            <h5 class="card-title">{{ item.name }}</h5>
+            <p class="card-text text-muted">{{ item.price | currency }}</p>
+          </div>
+          <div class="card-footer text-left">
+            <button
+              type="button"
+              class="btn btn-outline-light text-black"
+              [routerLink]="['/cart', item.id, 'product']"
+            >
+              Detail
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

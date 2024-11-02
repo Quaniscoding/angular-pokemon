@@ -1,0 +1,219 @@
+<app-alert
+  [message]="alertMessage"
+  [type]="alertType"
+  [isVisible]="isAlert"
+  (close)="isAlert = false"
+></app-alert>
+<div class="">
+  <nav
+    class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top"
+    style="position: fixed; top: 0; width: 100%; z-index: 1000"
+  >
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img
+          class="brand-logo"
+          src="./assets/images/logo.jpg"
+          alt="logo"
+          aria-hidden="true"
+          style="width: 40px"
+        />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarID"
+        aria-controls="navbarID"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse navbar-collapse justify-content-between"
+        id="navbarID"
+      >
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown1"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Product
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+              <li>
+                <a class="dropdown-item" routerLink="/pokemonBall"
+                  >Pokemon Ball</a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+            </ul>
+          </li>
+          <a class="nav-link" routerLink="/typeChart">Type chart</a>
+        </div>
+        <div class="navbar-nav">
+          <!-- Cart Icon -->
+          <div class="nav-item" *ngIf="dataUser">
+            <a
+              href="#"
+              class="nav-link cart-container"
+              data-bs-toggle="modal"
+              data-bs-target="#modalId"
+            >
+              <i class="bi bi-cart3 cart-icon" style="font-size: 30px"></i>
+              <span class="cart-count" [class.animate]="isAnimating">{{
+                itemCount
+              }}</span>
+            </a>
+          </div>
+          <!-- User Profile -->
+          <div class="nav-item dropdown">
+            <img
+              src="./assets/images/avatar.jpg"
+              alt="User Avatar"
+              class="nav-link dropdown-toggle"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style="
+                cursor: pointer;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+              "
+            />
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="navbarDropdown"
+            >
+              <li *ngIf="!dataUser">
+                <a class="dropdown-item" routerLink="/Login" href="#">Login</a>
+              </li>
+              <li *ngIf="!dataUser">
+                <a class="dropdown-item" routerLink="/admin" href="#"
+                  >Admin login</a
+                >
+              </li>
+              <li *ngIf="dataUser">
+                <a class="dropdown-item" href="#">Profile</a>
+              </li>
+              <li *ngIf="dataUser">
+                <a class="dropdown-item" href="Login" (click)="logout()"
+                  >Logout</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Cart Modal -->
+  <div
+    class="modal fade"
+    id="modalId"
+    tabindex="-1"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    role="dialog"
+    aria-labelledby="modalTitleId"
+    aria-hidden="true"
+  >
+    <div
+      class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg"
+      role="document"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitleId">Cart</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body"></div>
+        <table style="width: 100%" class="text-center table">
+          <thead>
+            <tr>
+              <th>Picture</th>
+              <th>Product name</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total amount</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of cartList; track $index) {
+            <tr>
+              <td>
+                <img
+                  src="{{ item.img }}"
+                  style="height: 100px; width: 100px; object-fit: cover"
+                />
+              </td>
+              <td class="align-middle">{{ item.name }}</td>
+              <td class="align-middle">{{ item.price | currency }}</td>
+              <td class="align-middle">
+                <button
+                  (click)="decreaseQuantity(item)"
+                  [disabled]="item.quantity <= 0"
+                  class="btn btn-danger btn-sm"
+                >
+                  -
+                </button>
+                {{ item.quantity }}
+                <button
+                  (click)="increaseQuantity(item)"
+                  class="btn btn-success btn-sm"
+                >
+                  +
+                </button>
+              </td>
+
+              <td class="align-middle">
+                {{ item.price! * item.quantity! | currency }}
+              </td>
+              <td class="align-middle">
+                <button class="btn btn-danger" (click)="Remove($index)">
+                  Remove
+                </button>
+              </td>
+            </tr>
+            }
+            <tr>
+              <th colspan="2"></th>
+              <th>Sum price:</th>
+              <th>{{ itemCount }}</th>
+              <th>{{ itemSum | currency }}</th>
+              <th class="d-flex justify-content-between">
+                <button class="btn btn-danger" (click)="DeleteAll()">
+                  Delete All
+                </button>
+                <button
+                  class="btn btn-success"
+                  (click)="Order()"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                >
+                  Order
+                </button>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

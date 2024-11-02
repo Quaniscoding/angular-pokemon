@@ -1,0 +1,65 @@
+.sidebar {
+  transition: width 0.3s ease;
+  overflow: hidden;
+  width: 200px; /* Kích thước sidebar khi mở rộng */
+}
+
+.sidebar-closed {
+  width: 100px !important; /* Đặt chiều rộng nhỏ hơn khi đóng */
+}
+ul {
+  margin: 0 !important;
+}
+.main-expanded {
+  margin-left: 60px; /* Điều chỉnh lề của phần chính khi sidebar đóng */
+}
+.toggle-btn {
+  position: absolute;
+  top: 10px;
+  left: 80px;
+  z-index: 1001;
+  background: #007bff;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.toggle-btn-expand {
+  position: absolute;
+  top: 10px;
+  left: 175px;
+  z-index: 1001;
+  background: #007bff;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transform: rotate(180deg);
+}
+.sidebar.collapsed {
+  width: 60px; /* Kích thước sidebar khi thu nhỏ */
+}
+.sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: white;
+  font-size: 1rem;
+}
+.nav-link .fa-icon {
+  font-size: 24px;
+}
+.toggle-btn i {
+  font-size: 18px;
+}

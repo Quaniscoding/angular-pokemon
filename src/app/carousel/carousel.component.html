@@ -1,0 +1,53 @@
+<!-- Carousel for Pokémon -->
+<div id="homeCarousel" class="carousel slide" data-bs-ride="carousel">
+  <!-- Carousel Indicators -->
+  <div class="carousel-indicators">
+    <button
+      *ngFor="let pokemon of pokemonList; let i = index"
+      type="button"
+      [class.active]="i === 0"
+      data-bs-target="#homeCarousel"
+      [attr.data-bs-slide-to]="i"
+      [attr.aria-label]="'Slide ' + (i + 1)"
+    ></button>
+  </div>
+
+  <!-- Carousel Inner -->
+  <div class="carousel-inner">
+    <div
+      *ngFor="let pokemon of pokemonList; let i = index"
+      class="carousel-item"
+      [class.active]="i === 0"
+    >
+      <img
+        class="d-block w-100"
+        [src]="pokemon.imageUrl"
+        [alt]="pokemon.name"
+      />
+      <div class="carousel-caption d-none d-md-block">
+        <h5>{{ pokemon.name }}</h5>
+        <p>{{ pokemon.details }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Carousel Controls -->
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#homeCarousel"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#homeCarousel"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>

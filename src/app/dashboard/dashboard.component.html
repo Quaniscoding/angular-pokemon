@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <div class="row">
+    <nav
+      class="col-12 col-sm-6 col-md-3 col-lg-2 d-md-block bg-dark sidebar"
+      [class.sidebar-closed]="!isSidebarOpen"
+    >
+      <div class="position-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              [routerLink]="['/dashboard']"
+            >
+              <span *ngIf="!isSidebarOpen">🏠</span>
+              <span *ngIf="isSidebarOpen">🏠 Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              [routerLink]="['/dashboard/user']"
+            >
+              <span *ngIf="!isSidebarOpen">👤</span>
+              <span *ngIf="isSidebarOpen">👤Users</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              [routerLink]="['/dashboard/product']"
+            >
+              <span *ngIf="!isSidebarOpen">📦</span>
+              <span *ngIf="isSidebarOpen">📦Products</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              [routerLink]="['/dashboard/pokemonItem']"
+            >
+              <span *ngIf="!isSidebarOpen">🐉</span>
+              <span *ngIf="isSidebarOpen">🐉Pokemon Item</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin" (click)="logout()">
+              <span *ngIf="!isSidebarOpen">🚪</span>
+              <span *ngIf="isSidebarOpen">🚪Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <main
+      class="col-12 col-sm-6 col-md-9 col-lg-10 ms-sm-auto px-md-4 vh-100"
+      [class.main-expanded]="!isSidebarOpen"
+    >
+      <button
+        (click)="toggleSidebar()"
+        class="btn btn-primary toggle-btn"
+        [ngClass]="{ 'toggle-btn-expand': isSidebarOpen }"
+      >
+        <i
+          class="fas"
+          [ngClass]="isSidebarOpen ? 'fa-chevron-left' : 'fa-chevron-right'"
+        ></i>
+      </button>
+      <h1>Hello, {{ dataUser?.name }}</h1>
+      <app-weather></app-weather>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

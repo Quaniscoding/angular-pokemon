@@ -1,0 +1,240 @@
+<div class="mt-2 mb-2">
+  <button
+    type="button"
+    class="btn btn-primary btn-lg"
+    data-bs-toggle="modal"
+    data-bs-target="#modalId"
+    (click)="(IsAdd === 1)"
+  >
+    Add new item
+  </button>
+  <div
+    class="modal fade"
+    id="modalId"
+    tabindex="-1"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    role="dialog"
+    aria-labelledby="modalTitleId"
+    aria-hidden="true"
+  >
+    <div
+      class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg"
+      role="document"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitleId">Product</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="IsAdd = 1; IsUpdate = 0"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="formPokemonItem">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="">Product Name</label>
+                  <input
+                    type="text"
+                    [formControl]="formPokemonItem.controls.name"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <label for="">Price</label>
+                  <input
+                    type="number"
+                    [formControl]="formPokemonItem.controls.price"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <label for="">Stock</label>
+                  <input
+                    type="number"
+                    [formControl]="formPokemonItem.controls.stock"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="mb-3">
+                  <label for="">Category</label>
+                  <input
+                    type="text"
+                    [formControl]="formPokemonItem.controls.category"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="">Image</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [formControl]="formPokemonItem.controls.img"
+                    placeholder="Input img link here"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <img
+                  src="{{ formPokemonItem.controls.img }}"
+                  width="20%"
+                  alt=""
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          @if (IsAdd==1) {
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="Add()"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          >
+            Add
+          </button>
+          } @if(IsUpdate==2){
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="Update()"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          >
+            Update
+          </button>
+          }
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="IsAdd = 1; IsUpdate = 0"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="w-100 h-75 p-4 justify-content-center text-center">
+  <div class="table-responsive text-wrap h-100">
+    <table class="table table-striped table-dark table-hover align-middle">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Effect</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of productList; track $index) {
+        <tr>
+          <td>{{ item.id }}</td>
+          <td>
+            <img src="{{ item.img }}" alt="" />
+          </td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.category }}</td>
+          <td>{{ item.effect }}</td>
+          <td>{{ item.price }}</td>
+          <td>{{ item.stock }}</td>
+          <td>
+            <button
+              class="btn btn-info"
+              class="btn btn-warning"
+              data-bs-toggle="modal"
+              data-bs-target="#modalId"
+              (click)="Edit(+item.id); IsAdd = 0; IsUpdate = 2"
+            >
+              Edit
+            </button>
+            <button
+              class="btn btn-danger m-2"
+              data-bs-toggle="modal"
+              data-bs-target="#modalDelete"
+            >
+              Delete
+            </button>
+            <!-- Modal delete -->
+            <div
+              class="modal fade"
+              id="modalDelete"
+              tabindex="-1"
+              data-bs-backdrop="static"
+              data-bs-keyboard="false"
+              role="dialog"
+              aria-labelledby="modalTitleId"
+              aria-hidden="true"
+            >
+              <div
+                class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
+                role="document"
+              >
+                <div class="modal-content">
+                  <div class="modal-header text-center">
+                    <h5
+                      class="modal-title"
+                      id="modalTitleId"
+                      class="text-warning text-center"
+                    >
+                      Warning
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <h5 class="text-black">
+                      Do you want delete this pokemon item ?
+                    </h5>
+                    <button
+                      class="btn m-2 btn-success text-black"
+                      (click)="Delete(+item.id)"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      Yes
+                    </button>
+                    <button
+                      class="btn m-2 btn-danger text-black"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

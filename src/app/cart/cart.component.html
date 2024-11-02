@@ -1,0 +1,288 @@
+<app-header></app-header>
+
+<main id="main" class="main-content grid-container">
+  <h1 class="text-center fw-bold" style="font-size: 2.5rem">
+    {{ productDetail?.name }}
+    <span *ngIf="!isProduct(productDetail)" class="text-muted"> (item) </span>
+  </h1>
+  <nav class="entity-nav component" *ngIf="productDetail">
+    <a
+      class="entity-nav-prev"
+      [routerLink]="[
+        '/cart',
+        +productDetail.id - 1,
+        isProduct(productDetail) ? 'product' : 'pokemonBall'
+      ]"
+      [ngClass]="{ 'd-none': +productDetail.id < 0 }"
+      *ngIf="+productDetail.id > 1"
+    >
+      {{ isProduct(productDetail) ? "Prev pokemon" : "Prev pokemon ball" }}
+    </a>
+
+    <a
+      class="entity-nav-next"
+      [routerLink]="[
+        '/cart',
+        +productDetail.id + 1,
+        isProduct(productDetail) ? 'product' : 'pokemonBall'
+      ]"
+      *ngIf="+productDetail.id < maxProductId"
+    >
+      {{ isProduct(productDetail) ? "Next pokemon" : "Next pokemon ball" }}
+    </a>
+  </nav>
+
+  <ul class="list-nav panel panel-nav">
+    <li class="list-nav-title">Contents</li>
+    <li><a>Info</a></li>
+    <li><a>Base stats</a></li>
+    <li><a>Evolution chart</a></li>
+    <li><a>Pokédex entries</a></li>
+    <li><a>Moves learned</a></li>
+    <li><a>Sprites</a></li>
+    <li><a>Locations</a></li>
+    <li><a>Language</a></li>
+  </ul>
+  <div class="grid-row" *ngIf="!isProduct(productDetail)">
+    <div class="grid-col span-md-8">
+      <h2>Effects</h2>
+      <p>{{ productDetail?.effect }}</p>
+      <tr>
+        <th class="fw-bold" style="font-size: 25px">Price</th>
+        <td class="fw-bold" style="font-size: 25px">
+          $ {{ productDetail?.price }}
+        </td>
+      </tr>
+      <tr>
+        <th class="fw-bold" style="font-size: 25px">Stock</th>
+        <td class="fw-bold" style="font-size: 25px">
+          <ng-container *ngIf="productDetail?.stock; else outOfStock">
+            {{ productDetail?.stock }}
+          </ng-container>
+          <ng-template #outOfStock> Out of stock </ng-template>
+        </td>
+      </tr>
+      <button
+        class="btn btn-outline-info mt-2"
+        [disabled]="!productDetail?.stock"
+        (click)="Add()"
+      >
+        Add to cart
+      </button>
+    </div>
+    <div class="grid-col span-md-4">
+      <h2>Game locations</h2>
+      <p>Sorry, we don't have location data just yet.</p>
+    </div>
+    <img
+      src="{{ productDetail?.img }}"
+      width="360"
+      height="326"
+      fetchpriority="high"
+    />
+  </div>
+  <div class="panel" *ngIf="isProduct(productDetail)">
+    <div class="grid-row">
+      <div class="grid-col span-md-6 span-lg-4 text-center">
+        <p>
+          <a
+            rel="lightbox"
+            href="{{ productDetail.img }}"
+            data-title="Rayquaza official artwork"
+            ><picture>
+              <source
+                srcset="{{productDetail.img }}"
+                width="360"
+                height="326"
+                type="image/avif"
+              />
+              <img
+                src="{{ productDetail.img }}"
+                width="360"
+                height="326"
+                fetchpriority="high"
+              /> </picture
+          ></a>
+        </p>
+        <p class="text-small">
+          <a>Additional artwork</a>
+        </p>
+      </div>
+      <div class="grid-col span-md-6 span-lg-4">
+        <h2>Pokédex data</h2>
+        <table class="vitals-table">
+          <tbody>
+            <tr>
+              <th>National №</th>
+              <td>
+                <strong>{{ productDetail.id }}</strong>
+              </td>
+            </tr>
+            <tr>
+              <th>Type</th>
+              <td>
+                <a
+                  class="m-1"
+                  *ngFor="let type of getPokemonTypes(productDetail)"
+                  [ngClass]="'type-icon type-' + type.trim()"
+                >
+                  <span>{{ type.trim() }}</span>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <th>Rarity</th>
+              <td>{{ productDetail.rarity }}</td>
+            </tr>
+            <tr>
+              <th *ngIf="isProduct(productDetail)">Species</th>
+              <td *ngIf="isProduct(productDetail)">
+                {{ productDetail.species }}
+              </td>
+              <td
+                *ngIf="!isProduct(productDetail) || productDetail === undefined"
+                colspan="2"
+              >
+                <span>N/A</span>
+              </td>
+            </tr>
+
+            <tr>
+              <th>Height</th>
+              <td>
+                {{
+                  isProduct(productDetail) ? productDetail.height : "N/A"
+                }}&nbsp;m
+              </td>
+            </tr>
+            <tr>
+              <th>Weight</th>
+              <td>
+                {{
+                  isProduct(productDetail) ? productDetail.weight : "N/A"
+                }}&nbsp;kg
+              </td>
+            </tr>
+            <tr>
+              <th>Abilities</th>
+              <td>
+                {{
+                  isProduct(productDetail) ? productDetail.ablities : "N/A"
+                }}&nbsp;kg
+              </td>
+            </tr>
+            <tr *ngIf="productDetail">
+              <th>Local №</th>
+              <td style="display: block">
+                <small>
+                  {{ productDetail.local }}
+                </small>
+              </td>
+            </tr>
+            <tr>
+              <th class="fw-bold" style="font-size: 25px">Price</th>
+              <td class="fw-bold" style="font-size: 25px">
+                $ {{ productDetail.price }}
+              </td>
+            </tr>
+            <tr>
+              <th class="fw-bold" style="font-size: 25px">Stock</th>
+              <td class="fw-bold" style="font-size: 25px">
+                <ng-container *ngIf="productDetail?.stock; else outOfStock">
+                  {{ productDetail.stock }}
+                </ng-container>
+                <ng-template #outOfStock> Out of stock </ng-template>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid-col span-md-12 span-lg-4">
+        <div class="grid-row">
+          <div class="grid-col span-md-6 span-lg-12">
+            <h2>Training</h2>
+
+            <table class="vitals-table">
+              <tbody>
+                <tr>
+                  <th>Catch rate</th>
+                  <td>
+                    <small class="text-muted">{{
+                      isProduct(productDetail) ? productDetail.catchRate : "N/A"
+                    }}</small>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Base <a>Friendship</a></th>
+                  <td>
+                    <small class="text-muted">{{
+                      isProduct(productDetail)
+                        ? productDetail.baseFrendship
+                        : "N/A"
+                    }}</small>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Base Exp.</th>
+                  <td>
+                    {{
+                      isProduct(productDetail) ? productDetail.baseExp : "N/A"
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Growth Rate</th>
+                  <td>
+                    {{
+                      isProduct(productDetail)
+                        ? productDetail.growthRate
+                        : "N/A"
+                    }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="grid-col span-md-6 span-lg-12">
+            <h2>Breeding</h2>
+            <table class="vitals-table">
+              <tbody>
+                <tr *ngIf="productDetail">
+                  <th>Egg Groups</th>
+                  <td style="display: block">
+                    <small> {{ productDetail.eggGroup }}</small>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Gender</th>
+                  <td>
+                    {{
+                      isProduct(productDetail) ? productDetail.gender : "N/A"
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <th><a>Egg cycles</a></th>
+                  <td>
+                    {{
+                      isProduct(productDetail) ? productDetail.eggCycles : "N/A"
+                    }}
+                    <small class="text-muted">120</small>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      class="btn btn-outline-info mt-2"
+      [disabled]="!productDetail.stock"
+      (click)="Add()"
+    >
+      Add to cart
+    </button>
+  </div>
+</main>

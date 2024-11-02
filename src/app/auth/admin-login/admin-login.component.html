@@ -1,0 +1,56 @@
+<app-alert
+  [message]="alertMessage"
+  [type]="alertType"
+  [isVisible]="isAlert"
+  (close)="isAlert = false"
+></app-alert>
+<div class="cont isSignUp">
+  <div class="form sign-in">
+    <h2>Welcome Admin Dashboard</h2>
+    <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+      <label>
+        <span>Email</span>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          required
+          [(ngModel)]="email"
+          name="email"
+          autocomplete="email"
+          #emailInput="ngModel"
+        />
+        @if (emailInput.invalid && (emailInput.touched || emailInput.dirty)) {
+        <small id="helpId" class="text-danger">
+          Email field must be valid
+        </small>
+        }
+      </label>
+      <label>
+        <span>Password</span>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          required
+          [(ngModel)]="password"
+          name="password"
+          #passwordInput="ngModel"
+          minlength="8"
+          autocomplete="current-password"
+        />
+        @if (passwordInput.invalid && (passwordInput.touched ||
+        passwordInput.dirty)) { @if (passwordInput.errors?.['required']) {
+        <small id="helpId" class="text-danger">
+          Password field must be valid
+        </small>
+        } @if (passwordInput.errors?.['minlength']) {
+        <small id="helpId" class="text-danger">
+          Pass must be at least 8 characters long.
+        </small>
+        } }
+      </label>
+      <button type="submit" class="submit">Sign In</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div
+  *ngIf="isVisible"
+  class="custom-alert"
+  [ngClass]="{
+    'custom-alert--success': type === 'success',
+    'custom-alert--error': type === 'error'
+  }"
+  role="alert"
+>
+  <div class="custom-alert__icon">
+    <i *ngIf="type === 'success'" class="fas fa-check-circle"></i>
+    <i *ngIf="type === 'error'" class="fas fa-exclamation-circle"></i>
+  </div>
+  <div class="custom-alert__content">
+    <p class="custom-alert__message">{{ message }}</p>
+  </div>
+  <button type="button" class="custom-alert__close" (click)="closeAlert()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
