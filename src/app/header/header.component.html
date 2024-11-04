@@ -58,7 +58,7 @@
           </li>
           <a class="nav-link" routerLink="/typeChart">Type chart</a>
         </div>
-        <div class="navbar-nav">
+        <div class="navbar-nav d-flex align-items-center">
           <!-- Cart Icon -->
           <div class="nav-item" *ngIf="dataUser">
             <a
@@ -75,21 +75,40 @@
           </div>
           <!-- User Profile -->
           <div class="nav-item dropdown">
-            <img
-              src="./assets/images/avatar.jpg"
-              alt="User Avatar"
-              class="nav-link dropdown-toggle"
+            <div
+              class="rounde-circle"
+              style="
+                cursor: pointer;
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-left: 5px;
+                background-color: #9fadbc;
+              "
               id="navbarDropdown"
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
-              style="
-                cursor: pointer;
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-              "
-            />
+            >
+              <span
+                *ngIf="dataUser"
+                class="text-white"
+                style="font-size: 26px"
+                alt=""
+                >{{ dataUser.name.charAt(0) | uppercase }}</span
+              >
+              <span
+                *ngIf="!dataUser"
+                class="text-white"
+                style="font-size: 26px"
+                alt=""
+              >
+                <i class="fa fa-user-circle" aria-hidden="true"></i>
+              </span>
+            </div>
             <ul
               class="dropdown-menu dropdown-menu-end"
               aria-labelledby="navbarDropdown"

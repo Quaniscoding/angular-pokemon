@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../interface/products';
 import { PokemonBall } from '../../interface/pokemon-ball';
 import { Cart } from '../../interface/cart';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
 import { PokemonBallService } from '../../services/pokemon-ball.service';
 import { CartService } from '../../services/cart.service';
@@ -24,20 +24,27 @@ import { AlertComponent } from '../alert/alert.component';
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit {
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductsService,
+    private pokemonBallService: PokemonBallService,
+    private cartService: CartService,
+    private router: Router
+  ) {}
   allProduct: (Product | PokemonBall)[] = [];
   productDetail: Product | PokemonBall | undefined;
   cartList: Cart[] = [];
   itemCount: number = 0;
   itemSum: number = 0;
   source: string | null = null;
-  maxProductId: number = 0; // Initialize maxProductId
-
-  constructor(
-    private route: ActivatedRoute,
-    private productService: ProductsService,
-    private pokemonBallService: PokemonBallService,
-    private cartService: CartService
-  ) {}
+  maxProductId: number = 0;
+  dataUser: { name: string; token: string } | null = null;
+  getDataUser() {
+    const userData = localStorage.getItem('User');
+    if (userData) {
+      this.dataUser = JSON.parse(userData);
+    }
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -48,7 +55,8 @@ export class CartComponent implements OnInit {
 
     this.cartList = this.cartService.getCartAll();
     this.updateCartInfo();
-    this.loadAllProducts(); // Load all products based on source
+    this.loadAllProducts();
+    this.getDataUser();
   }
 
   private loadAllProducts(): void {
@@ -56,7 +64,7 @@ export class CartComponent implements OnInit {
       this.productService.getAllProductList().subscribe(
         (res) => {
           this.allProduct = res;
-          this.maxProductId = this.allProduct.length; // Update maxProductId
+          this.maxProductId = this.allProduct.length;
         },
         (error) => {
           console.error('Failed to load products:', error);
@@ -66,7 +74,7 @@ export class CartComponent implements OnInit {
       this.pokemonBallService.getAllPokemonBallList().subscribe(
         (res) => {
           this.allProduct = res;
-          this.maxProductId = this.allProduct.length; // Update maxProductId
+          this.maxProductId = this.allProduct.length;
         },
         (error) => {
           console.error('Failed to load Pokemon balls:', error);
@@ -98,11 +106,15 @@ export class CartComponent implements OnInit {
   }
 
   Add(): void {
-    if (this.productDetail) {
-      this.cartService.addCart(this.productDetail, 1);
-      this.updateCartInfo();
-      if ('stock' in this.productDetail) {
-        this.productDetail.stock--;
+    if (!this.dataUser) {
+      this.router.navigate(['/Login']);
+    } else {
+      if (this.productDetail) {
+        this.cartService.addCart(this.productDetail, 1);
+        this.updateCartInfo();
+        if ('stock' in this.productDetail) {
+          this.productDetail.stock--;
+        }
       }
     }
   }
