@@ -10,12 +10,14 @@ import { PokemonBallComponent } from './pokemon-ball/pokemon-ball.component';
 import { PokemonItemComponent } from './pokemon-item/pokemon-item.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { PokemonComponent } from './pokemon/pokemon.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home' },
   { path: 'cart/:id/:source', component: CartComponent, title: 'Detail' },
   { path: 'Login', component: CustomerLoginComponent, title: 'Login' },
   { path: 'admin', component: AdminLoginComponent, title: 'Login admin' },
+  { path: 'pokemon', component: PokemonComponent, title: 'Pokemon' },
   {
     path: 'pokemonBall',
     component: PokemonBallComponent,

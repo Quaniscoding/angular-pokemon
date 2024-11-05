@@ -4,164 +4,153 @@
   [isVisible]="isAlert"
   (close)="isAlert = false"
 ></app-alert>
-<div class="">
-  <nav
-    class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top"
-    style="position: fixed; top: 0; width: 100%; z-index: 1000"
-  >
-    <div class="container">
-      <a class="navbar-brand" href="#">
-        <img
-          class="brand-logo"
-          src="./assets/images/logo.jpg"
-          alt="logo"
-          aria-hidden="true"
-          style="width: 40px"
-        />
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarID"
-        aria-controls="navbarID"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div
-        class="collapse navbar-collapse justify-content-between"
-        id="navbarID"
-      >
-        <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown1"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Product
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-              <li>
-                <a class="dropdown-item" routerLink="/pokemonBall"
-                  >Pokemon Ball</a
-                >
-              </li>
-              <li><hr class="dropdown-divider" /></li>
-            </ul>
-          </li>
-          <a class="nav-link" routerLink="/typeChart">Type chart</a>
+<nav
+  class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top"
+  style="position: fixed; top: 0; width: 100%; z-index: 1000"
+>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img
+        class="brand-logo"
+        src="./assets/images/logo.jpg"
+        alt="logo"
+        aria-hidden="true"
+        style="width: 40px"
+      />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarID"
+      aria-controls="navbarID"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarID">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="#">Home</a>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown1"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Product
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+            <li>
+              <a class="dropdown-item" routerLink="/pokemonBall">
+                Pokemon Ball
+              </a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+          </ul>
+        </li>
+        <a class="nav-link" routerLink="/typeChart">Type chart</a>
+        <a class="nav-link" routerLink="/pokemon">Pokemon</a>
+      </div>
+
+      <div class="navbar-nav d-flex align-items-center">
+        <!-- Cart Icon -->
+        <div *ngIf="dataUser" class="nav-item">
+          <a
+            href="#"
+            class="nav-link cart-container"
+            data-bs-toggle="modal"
+            data-bs-target="#modalId"
+          >
+            <i class="bi bi-cart3 cart-icon" style="font-size: 30px"></i>
+            <span class="cart-count" [class.animate]="isAnimating">
+              {{ itemCount }}
+            </span>
+          </a>
         </div>
-        <div class="navbar-nav d-flex align-items-center">
-          <!-- Cart Icon -->
-          <div class="nav-item" *ngIf="dataUser">
-            <a
-              href="#"
-              class="nav-link cart-container"
-              data-bs-toggle="modal"
-              data-bs-target="#modalId"
-            >
-              <i class="bi bi-cart3 cart-icon" style="font-size: 30px"></i>
-              <span class="cart-count" [class.animate]="isAnimating">{{
-                itemCount
-              }}</span>
-            </a>
+
+        <!-- User Profile -->
+        <div class="nav-item dropdown">
+          <div
+            class="rounded-circle"
+            style="
+              cursor: pointer;
+              width: 45px;
+              height: 45px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-left: 5px;
+              background-color: #9fadbc;
+            "
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <span *ngIf="dataUser" class="text-white" style="font-size: 26px">
+              {{ dataUser.name.charAt(0) | uppercase }}
+            </span>
+            <span *ngIf="!dataUser" class="text-white" style="font-size: 26px">
+              <i class="fa fa-user-circle" aria-hidden="true"></i>
+            </span>
           </div>
-          <!-- User Profile -->
-          <div class="nav-item dropdown">
-            <div
-              class="rounde-circle"
-              style="
-                cursor: pointer;
-                width: 45px;
-                height: 45px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-left: 5px;
-                background-color: #9fadbc;
-              "
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <span
-                *ngIf="dataUser"
-                class="text-white"
-                style="font-size: 26px"
-                alt=""
-                >{{ dataUser.name.charAt(0) | uppercase }}</span
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="navbarDropdown"
+          >
+            <li *ngIf="!dataUser">
+              <a class="dropdown-item" routerLink="/login" href="#">Login</a>
+            </li>
+            <li *ngIf="!dataUser">
+              <a class="dropdown-item" routerLink="/admin" href="#"
+                >Admin login</a
               >
-              <span
-                *ngIf="!dataUser"
-                class="text-white"
-                style="font-size: 26px"
-                alt=""
-              >
-                <i class="fa fa-user-circle" aria-hidden="true"></i>
-              </span>
-            </div>
-            <ul
-              class="dropdown-menu dropdown-menu-end"
-              aria-labelledby="navbarDropdown"
-            >
-              <li *ngIf="!dataUser">
-                <a class="dropdown-item" routerLink="/Login" href="#">Login</a>
-              </li>
-              <li *ngIf="!dataUser">
-                <a class="dropdown-item" routerLink="/admin" href="#"
-                  >Admin login</a
-                >
-              </li>
-              <li *ngIf="dataUser">
-                <a class="dropdown-item" href="#">Profile</a>
-              </li>
-              <li *ngIf="dataUser">
-                <a class="dropdown-item" href="Login" (click)="logout()"
-                  >Logout</a
-                >
-              </li>
-            </ul>
-          </div>
+            </li>
+            <li *ngIf="dataUser">
+              <a class="dropdown-item" href="#">Profile</a>
+            </li>
+            <li *ngIf="dataUser">
+              <a class="dropdown-item" href="#" (click)="logout()">Logout</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <!-- Cart Modal -->
+<!-- Cart Modal -->
+<div
+  class="modal fade"
+  id="modalId"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  role="dialog"
+  aria-labelledby="modalTitleId"
+  aria-hidden="true"
+>
   <div
-    class="modal fade"
-    id="modalId"
-    tabindex="-1"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-    role="dialog"
-    aria-labelledby="modalTitleId"
-    aria-hidden="true"
+    class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg"
+    role="document"
   >
-    <div
-      class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg"
-      role="document"
-    >
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalTitleId">Cart</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitleId">Cart</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
         <table style="width: 100%" class="text-center table">
           <thead>
             <tr>
@@ -200,7 +189,6 @@
                   +
                 </button>
               </td>
-
               <td class="align-middle">
                 {{ item.price! * item.quantity! | currency }}
               </td>
