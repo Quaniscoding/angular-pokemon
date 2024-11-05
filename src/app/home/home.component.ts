@@ -26,4 +26,39 @@ import { FooterComponent } from '../footer/footer.component';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {}
+export class HomeComponent {
+  filterProductList: Product[] = [];
+  products: Product[] = [];
+  searching: string = '';
+  sortOption: string = 'nameAsc';
+  constructor(private productsService: ProductsService) {
+    this.productsService.getAllProductList().subscribe((res) => {
+      this.products = res;
+      this.filterProductList = [...this.products];
+    });
+  }
+  filterResults() {
+    let filtered = this.products;
+    if (this.searching) {
+      filtered = filtered.filter((list) =>
+        list.name.toLowerCase().includes(this.searching.toLowerCase())
+      );
+    }
+    switch (this.sortOption) {
+      case 'nameAsc':
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'nameDesc':
+        filtered.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case 'priceAsc':
+        filtered.sort((a, b) => a.price - b.price);
+        break;
+      case 'priceDesc':
+        filtered.sort((a, b) => b.price - a.price);
+        break;
+    }
+
+    this.filterProductList = filtered;
+  }
+}

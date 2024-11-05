@@ -44,36 +44,41 @@ export class CustomerLoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    const { email, password, username, confirmPassword } = this;
     if (this.isSignUp) {
+      if (!email || !password || !username || !confirmPassword) {
+        this.triggerAlert('Please enter full information!');
+        return;
+      }
       this.authService.Register(form).subscribe({
-        next: (res) => {
-          this.isAlert = true;
-          this.showSuccessAlert(res);
-          setTimeout(() => {
-            this.isAlert = false;
-          }, 3000);
-          this.toggleSignUp();
-        },
-        error: (err) => {
-          this.isAlert = true;
-          this.showErrorAlert(err);
-        },
+        next: (res) => this.handleResponse(res, 'Sign Up successful!'),
+        error: (err) => this.triggerAlert(err),
       });
     } else {
       this.authService.loginCustomer(form).subscribe((res) => {
-        if (res) {
-          this.isAlert = true;
-          this.showSuccessAlert('Login success!');
-          setTimeout(() => {
-            this.isAlert = false;
-            this.router.navigate(['']);
-          }, 3000);
-        } else {
-          this.showErrorAlert('Incorrect email or password. Please try again.');
-        }
+        res
+          ? this.handleResponse('Login success!', '', true)
+          : this.triggerAlert('Incorrect email or password. Please try again.');
       });
     }
   }
+
+  triggerAlert(message: string) {
+    this.isAlert = true;
+    this.showErrorAlert(message);
+    setTimeout(() => (this.isAlert = false), 3000);
+  }
+
+  handleResponse(message: string, alertMsg = '', navigateAfter = false) {
+    this.isAlert = true;
+    this.showSuccessAlert(message || alertMsg);
+    setTimeout(() => {
+      this.isAlert = false;
+      if (navigateAfter) this.router.navigate(['']);
+      else this.toggleSignUp();
+    }, 3000);
+  }
+
   private showSuccessAlert(message: string) {
     this.alertMessage = message;
     this.alertType = 'success';

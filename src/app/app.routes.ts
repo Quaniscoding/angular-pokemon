@@ -11,11 +11,12 @@ import { PokemonItemComponent } from './pokemon-item/pokemon-item.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
+import { PrivacyComponent } from './privacy/privacy.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home' },
   { path: 'cart/:id/:source', component: CartComponent, title: 'Detail' },
-  { path: 'Login', component: CustomerLoginComponent, title: 'Login' },
+  { path: 'login', component: CustomerLoginComponent, title: 'Login' },
   { path: 'admin', component: AdminLoginComponent, title: 'Login admin' },
   { path: 'pokemon', component: PokemonComponent, title: 'Pokemon' },
   {
@@ -29,9 +30,14 @@ export const routes: Routes = [
     title: 'Pokémon types & type chart',
   },
   {
+    path: 'privacy',
+    component: PrivacyComponent,
+    title: 'Privacy',
+  },
+  {
     path: 'dashboard',
     component: DashboardComponent,
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
     title: 'Dashboard',
     children: [
       {

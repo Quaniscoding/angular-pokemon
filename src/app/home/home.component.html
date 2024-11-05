@@ -1,6 +1,64 @@
 <app-header></app-header>
 <div class="container mb-4">
   <app-carousel></app-carousel>
-  <app-pokemon></app-pokemon>
+  <!-- <app-pokemon></app-pokemon> -->
+  <div class="row mt-4 mb-4">
+    <div class="col-md-6">
+      <form class="form-inline">
+        <div class="form-group">
+          <input
+            type="text"
+            size="50"
+            [(ngModel)]="searching"
+            (ngModelChange)="filterResults()"
+            name="searching"
+            class="form-control shadow-sm"
+            placeholder="Search"
+          />
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <select
+        class="form-control shadow-sm"
+        [(ngModel)]="sortOption"
+        (change)="filterResults()"
+        value="Sort"
+      >
+        <option value="nameAsc">Sort by name: A - Z</option>
+        <option value="nameDesc">Sort by name: Z - A</option>
+        <option value="priceAsc">Sort by price: Low to High</option>
+        <option value="priceDesc">Sort by price: High to Low</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div
+      class="col-12 mb-3"
+      *ngFor="let item of filterProductList; let i = index"
+    >
+      <div class="card shadow-sm h-100 d-flex flex-row align-items-center">
+        <img
+          class="card-img-left p-3"
+          [src]="item.img"
+          alt=""
+          style="object-fit: cover; height: 150px; width: 150px"
+        />
+        <div class="card-body text-left">
+          <h5 class="card-title">{{ item.name }}</h5>
+          <p class="card-text text-muted">{{ item.rarity }}</p>
+          <p class="card-text text-muted">{{ item.price | currency }}</p>
+        </div>
+        <button
+          type="button"
+          class="btn btn-outline-success text-black"
+          style="margin-right: 10px"
+          [routerLink]="['/cart', item.id, 'product']"
+        >
+          Detail
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 <app-footer></app-footer>

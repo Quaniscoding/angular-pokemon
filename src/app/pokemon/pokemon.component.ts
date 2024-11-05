@@ -35,7 +35,6 @@ export class PokemonComponent {
     this.productsService.getAllProductList().subscribe((res) => {
       this.products = res;
       this.filterProductList = [...this.products];
-      console.log(this.filterProductList);
     });
   }
 

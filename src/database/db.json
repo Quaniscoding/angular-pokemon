@@ -1212,20 +1212,6 @@
   ],
   "users": [
     {
-      "id": "2",
-      "username": "user",
-      "email": "user@gmail.com",
-      "password": "12345678",
-      "role": "User"
-    },
-    {
-      "id": "3",
-      "username": "test",
-      "email": "test",
-      "password": "test",
-      "role": "User"
-    },
-    {
       "id": "4",
       "username": "Quân",
       "email": "vq.2509.2003@gmail.com",
@@ -1272,7 +1258,7 @@
       "username": "diep",
       "email": "diep@gmail.com",
       "password": "diep123",
-      "role": "User"
+      "role": "Admin"
     }
   ]
 }

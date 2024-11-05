@@ -107,7 +107,7 @@ export class AuthService {
       switchMap((existingUser) => {
         if (!existingUser) {
           const newUser = {
-            id: this.AutoId(),
+            id: this.AutoId().toString(),
             email: email,
             password: password,
             username: form.controls['username'].value,

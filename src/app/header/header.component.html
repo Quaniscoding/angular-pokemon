@@ -4,11 +4,8 @@
   [isVisible]="isAlert"
   (close)="isAlert = false"
 ></app-alert>
-<nav
-  class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top"
-  style="position: fixed; top: 0; width: 100%; z-index: 1000"
->
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <div class="container">
     <a class="navbar-brand" href="#">
       <img
         class="brand-logo"
@@ -55,6 +52,7 @@
         </li>
         <a class="nav-link" routerLink="/typeChart">Type chart</a>
         <a class="nav-link" routerLink="/pokemon">Pokemon</a>
+        <a class="nav-link" routerLink="/privacy">Privacy</a>
       </div>
 
       <div class="navbar-nav d-flex align-items-center">
@@ -124,7 +122,6 @@
     </div>
   </div>
 </nav>
-
 <!-- Cart Modal -->
 <div
   class="modal fade"
