@@ -30,7 +30,7 @@ export class CartComponent implements OnInit {
   itemCount: number = 0;
   itemSum: number = 0;
   source: string | null = null;
-  maxProductId: number = 0; // Initialize maxProductId
+  maxProductId: number = 0;
 
   constructor(
     private route: ActivatedRoute,

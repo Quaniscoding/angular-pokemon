@@ -1247,14 +1247,14 @@
       "role": "User"
     },
     {
-      "id": 8,
+      "id": "8",
       "email": "new@gmail.com",
       "password": "123456789",
       "username": "new",
       "role": "User"
     },
     {
-      "id": 9,
+      "id": "9",
       "email": "admin1@gmail.com",
       "password": "admin123",
       "username": "admin1",
@@ -1266,6 +1266,13 @@
       "email": "admin@gmail.com",
       "password": "123456789",
       "role": "Admin"
+    },
+    {
+      "id": "11",
+      "username": "diep",
+      "email": "diep@gmail.com",
+      "password": "diep123",
+      "role": "User"
     }
   ]
 }
