@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { User } from '../../interface/user';
+import { User } from '../interface/user';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +33,6 @@ export class AuthService {
   loginAdmin(form: any) {
     const email = form.controls['email'].value;
     const password = form.controls['password'].value;
-
     return this.getAllUserList().pipe(
       map((users: User[]) =>
         users.find(

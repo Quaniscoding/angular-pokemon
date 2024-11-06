@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../auth.service';
-import { CustomerService } from '../../../services/customer.service';
+import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AlertComponent } from '../../alert/alert.component';
@@ -29,14 +28,10 @@ export class CustomerLoginComponent implements OnInit {
   confirmPassword: string = '';
   username: string = '';
   id: number = 0;
-  constructor(
-    private authService: AuthService,
-    private customerService: CustomerService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.customerService.getAllUserList().subscribe((res) => {});
+    this.authService.getAllUserList().subscribe((res) => {});
   }
 
   toggleSignUp() {

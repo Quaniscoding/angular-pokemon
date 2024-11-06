@@ -85,7 +85,7 @@
   </div>
   <div class="layout-toggle mb-3">
     <button class="btn btn-primary" (click)="toggleLayout()">
-      Toggle to {{ isGridView ? "List" : "Grid" }} View
+      <i class="{{ isGridView ? 'fas fa-th-list' : 'fas fa-th-large' }}"></i>
     </button>
   </div>
 
@@ -101,12 +101,13 @@
             <img
               class="card-img-top p-3"
               [src]="item.img"
-              alt=""
+              [alt]="item.name"
               style="object-fit: cover; height: 250px"
             />
             <div class="card-body text-left">
               <h5 class="card-title">{{ item.name }}</h5>
               <p class="card-text text-muted">{{ item.price | currency }}</p>
+              <p class="card-text text-muted">{{ item.rarity }}</p>
             </div>
             <div class="card-footer text-left">
               <button
@@ -139,6 +140,7 @@
             <h5 class="card-title">{{ item.name }}</h5>
             <p class="card-text text-muted">{{ item.rarity }}</p>
             <p class="card-text text-muted">{{ item.price | currency }}</p>
+            <p class="card-text text-muted">{{ item.description }}</p>
           </div>
           <button
             type="button"

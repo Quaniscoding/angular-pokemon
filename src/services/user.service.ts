@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { User } from '../interface/user';
 
 @Injectable({
@@ -29,8 +29,19 @@ export class UserService {
   getUserId(id: number) {
     return this.http.get<User>(`${this.URL}/${id}`);
   }
-  AddUser(newUser: any): Observable<User[]> {
-    return this.http.post<User[]>(this.URL, newUser);
+  AddUser(newUser: any): Observable<any> {
+    const isUserExist = this.userList.some(
+      (user) => user.username === newUser.name
+    );
+    if (isUserExist) {
+      return of(false);
+    } else {
+      return this.http.post<User[]>(this.URL, newUser).pipe(
+        tap((newUserList) => {
+          this.userList = newUserList;
+        })
+      );
+    }
   }
   UpdateUser(id: any, frmUser: any): Observable<User[]> {
     return this.http.put<User[]>(`${this.URL}/${id}`, frmUser);

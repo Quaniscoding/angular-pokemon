@@ -3,7 +3,7 @@ import { HeaderComponent } from '../header/header.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PokemonBall } from '../../interface/pokemon-ball';
-import { PokemonBallService } from '../../services/pokemon-ball.service';
+import { PokemonBallService } from '../../services/pokemon-item.service';
 import { RouterModule } from '@angular/router';
 
 @Component({

@@ -1,7 +1,7 @@
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Cart } from '../../interface/cart';
 import { CartService } from '../../services/cart.service';
 import { AlertComponent } from '../alert/alert.component';

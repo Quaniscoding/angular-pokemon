@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { Product } from '../interface/products';
 
 @Injectable({
@@ -30,8 +30,19 @@ export class ProductsService {
     });
     return max + 1;
   }
-  AddProduct(formProduct: any): Observable<Product[]> {
-    return this.http.post<Product[]>(`${this.baseURL}`, formProduct);
+  AddProduct(formProduct: any): Observable<any> {
+    const isPokemonItemExist = this.productsList.some(
+      (pokemonItem) => pokemonItem.name === formProduct.name
+    );
+    if (isPokemonItemExist) {
+      return of(false);
+    } else {
+      return this.http.post<Product[]>(`${this.baseURL}`, formProduct).pipe(
+        tap((newPokemonItemList) => {
+          this.productsList = newPokemonItemList;
+        })
+      );
+    }
   }
   EditProduct(id: number) {
     return this.productsList[id];

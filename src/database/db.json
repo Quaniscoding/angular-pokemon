@@ -570,36 +570,36 @@
   ],
   "products": [
     {
-      "id": "2",
-      "name": "Charizard",
-      "productCode": "POK-002",
-      "releaseDate": "1996-01-30",
-      "price": 32.99,
-      "stock": 30,
-      "description": "Fire and flying-type Pokémon with powerful flame attacks.",
-      "starRating": 4.8,
-      "img": "./assets/images/Charizard.webp",
-      "rarity": "Legendary",
-      "type": "Fire, Flying",
-      "HP": 78,
-      "Attack": 84,
-      "Defense": 78,
-      "Sp_Atk": 109,
-      "Sp_Def": 85,
-      "speed": 100,
-      "total": 534,
-      "species": "Flame Pokémon",
-      "height": 1.7,
-      "weight": 90.5,
-      "ablities": "Blaze",
-      "local": "(Red/Blue/Yellow),(Gold/Silver/Crystal)",
+      "id": "1",
+      "name": "Bulbasaur",
+      "productCode": "POK-003",
+      "releaseDate": "1996-02-27",
+      "price": 8.9,
+      "stock": 40,
+      "description": "Grass-type Pokémon known for its seed attacks.",
+      "starRating": 4.2,
+      "img": "./assets/images/Ash_Bulbasaur.webp",
+      "rarity": "Common",
+      "type": "water",
+      "HP": 45,
+      "Attack": 49,
+      "Defense": 49,
+      "Sp_Atk": 65,
+      "Sp_Def": 65,
+      "speed": 45,
+      "total": 318,
+      "species": "Mouse Pokémon",
+      "height": 0.4,
+      "weight": 6,
+      "ablities": "Static",
+      "local": "(Let's Go Pikachu/Let's Go Eevee)",
       "catchRate": "45 (5.9% with PokéBall, full HP)",
       "baseFrendship": "50 (normal)",
-      "baseExp": 112,
-      "growthRate": "Medium Fast",
-      "eggGroup": "fairy,field",
-      "gender": "50% male, 50% female",
-      "eggCycles": "10 (2,314–2,570 steps)"
+      "baseExp": 267,
+      "growthRate": "Medium Slow",
+      "eggGroup": "daragon,monster",
+      "gender": "87.5% male, 12.5% female",
+      "eggCycles": "20 (4,884–5,140 steps)"
     },
     {
       "id": "3",
@@ -1212,25 +1212,11 @@
   ],
   "users": [
     {
-      "id": "4",
-      "username": "Quân",
-      "email": "vq.2509.2003@gmail.com",
-      "password": "Quanquanquan2",
-      "role": "User"
-    },
-    {
-      "id": "6",
-      "username": "q",
-      "email": "admin2@gmail.com",
-      "password": "12345678",
-      "role": "User"
-    },
-    {
       "id": "7",
       "username": "new user",
       "email": "nguoidung1@gmail.com",
       "password": "nguoidung",
-      "role": "User"
+      "role": "Admin"
     },
     {
       "id": "8",
@@ -1251,13 +1237,6 @@
       "username": "admin",
       "email": "admin@gmail.com",
       "password": "123456789",
-      "role": "Admin"
-    },
-    {
-      "id": "11",
-      "username": "diep",
-      "email": "diep@gmail.com",
-      "password": "diep123",
       "role": "Admin"
     }
   ]

@@ -31,7 +31,6 @@ export class CartService {
         img: frmProduct.img,
       });
     }
-
     this.cartSubject.next(this.cartList);
   }
 

@@ -6,8 +6,14 @@
     data-bs-target="#modalId"
     (click)="(IsAdd === 1)"
   >
-    Add new item
+    Add new pokemon item
   </button>
+  <app-alert
+    [message]="alertMessage"
+    [type]="alertType"
+    [isVisible]="isAlert"
+    (close)="isAlert = false"
+  ></app-alert>
   <div
     class="modal fade"
     id="modalId"
@@ -174,6 +180,7 @@
               class="btn btn-danger m-2"
               data-bs-toggle="modal"
               data-bs-target="#modalDelete"
+              (click)="idTodelete = +item.id"
             >
               Delete
             </button>
@@ -214,7 +221,7 @@
                     </h5>
                     <button
                       class="btn m-2 btn-success text-black"
-                      (click)="Delete(+item.id)"
+                      (click)="Delete()"
                       data-bs-dismiss="modal"
                       aria-label="Close"
                     >

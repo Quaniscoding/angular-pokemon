@@ -4,7 +4,7 @@ import { PokemonBall } from '../../interface/pokemon-ball';
 import { Cart } from '../../interface/cart';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
-import { PokemonBallService } from '../../services/pokemon-ball.service';
+import { PokemonBallService } from '../../services/pokemon-item.service';
 import { CartService } from '../../services/cart.service';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
@@ -107,7 +107,7 @@ export class CartComponent implements OnInit {
 
   Add(): void {
     if (!this.dataUser) {
-      this.router.navigate(['/Login']);
+      this.router.navigate(['/login']);
     } else {
       if (this.productDetail) {
         this.cartService.addCart(this.productDetail, 1);

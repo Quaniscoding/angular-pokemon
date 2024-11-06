@@ -10,11 +10,18 @@ import {
 } from '@angular/forms';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
+import { AlertComponent } from '../alert/alert.component';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, HeaderComponent, CommonModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    HeaderComponent,
+    CommonModule,
+    AlertComponent,
+  ],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
@@ -58,7 +65,10 @@ export class ProductListComponent implements OnInit {
 
   IsAdd: number = 1;
   IsUpdate: number = 0;
-
+  alertMessage: string = '';
+  alertType: 'success' | 'error' = 'success';
+  isAlert: boolean = false;
+  idTodelete: number = 0;
   ngOnInit(): void {
     this.productService.getAllProductList().subscribe((res) => {
       this.productList = res;
@@ -73,7 +83,19 @@ export class ProductListComponent implements OnInit {
       this.productService
         .AddProduct(this.formProduct.value)
         .subscribe((res) => {
-          alert(`Create pokemon success !`);
+          if (res === false) {
+            this.isAlert = true;
+            this.showErrorAlert('Pokemon already exists!');
+            setTimeout(() => {
+              this.isAlert = false;
+            }, 3000);
+            return;
+          }
+          this.isAlert = true;
+          this.showSuccessAlert('Add pokemon success!');
+          setTimeout(() => {
+            this.isAlert = false;
+          }, 3000);
           this.ngOnInit();
         });
       setTimeout(() => {
@@ -111,7 +133,11 @@ export class ProductListComponent implements OnInit {
         });
       }, 0);
     } else {
-      alert('Please input all field !');
+      this.isAlert = true;
+      this.showErrorAlert('Please input all fields !');
+      setTimeout(() => {
+        this.isAlert = false;
+      }, 3000);
     }
   }
 
@@ -128,7 +154,11 @@ export class ProductListComponent implements OnInit {
           ...this.formProduct.value,
         })
         .subscribe((res) => {
-          alert(`Update pokemon success !`);
+          this.isAlert = true;
+          this.showSuccessAlert('Update pokemon success!');
+          setTimeout(() => {
+            this.isAlert = false;
+          }, 3000);
           this.ngOnInit();
         });
       setTimeout(() => {
@@ -170,9 +200,13 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  Delete(id: number) {
-    this.productService.DeleteProduct(id).subscribe((res) => {
-      alert(`Delete success pokemon !`);
+  Delete() {
+    this.productService.DeleteProduct(this.idTodelete).subscribe((res) => {
+      this.isAlert = true;
+      this.showSuccessAlert('Delete pokemon success!');
+      setTimeout(() => {
+        this.isAlert = false;
+      }, 3000);
       this.ngOnInit();
     });
   }
@@ -218,5 +252,15 @@ export class ProductListComponent implements OnInit {
       gender: '',
       eggCycles: '',
     });
+  }
+  private showErrorAlert(message: string) {
+    this.alertMessage = message;
+    this.alertType = 'error';
+    this.isAlert = true;
+  }
+  private showSuccessAlert(message: string) {
+    this.alertMessage = message;
+    this.alertType = 'success';
+    this.isAlert = true;
   }
 }

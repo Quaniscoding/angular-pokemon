@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PokemonBall } from '../interface/pokemon-ball';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -32,8 +32,19 @@ export class PokemonBallService {
     return max + 1;
   }
 
-  AddPokemon(formPokemon: any): Observable<PokemonBall[]> {
-    return this.http.post<PokemonBall[]>(`${this.baseURL}`, formPokemon);
+  AddPokemon(formPokemon: any): Observable<any> {
+    const isPokemonExist = this.pokemonBallList.some(
+      (pokemon) => pokemon.name === formPokemon.name
+    );
+    if (isPokemonExist) {
+      return of(false);
+    } else {
+      return this.http.post<PokemonBall[]>(`${this.baseURL}`, formPokemon).pipe(
+        tap((newPokemonList) => {
+          this.pokemonBallList = newPokemonList;
+        })
+      );
+    }
   }
 
   EditPokemon(id: any) {
